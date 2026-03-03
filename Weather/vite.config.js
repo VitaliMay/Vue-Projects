@@ -17,7 +17,21 @@ export default defineConfig({
   },
 
   base: './',
-  // css: {
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @use "@/assets/styles/_variables.scss" as *;
+          @use "@/assets/styles/_mixins.scss" as *;
+        `
+      }
+    }
+  }
+})
+
+// Чтобы использовать в компонентах style scoped переменные scss
+// css: {
   //   preprocessorOptions: {
   //     scss: {
   //       additionalData: `
@@ -27,5 +41,3 @@ export default defineConfig({
   //     }
   //   }
   // }
-  
-})
