@@ -24,6 +24,10 @@
     }
   })
 
+  const hasWeatherData = computed(() => {
+    return !error.value && location.value && temperature.value !== 0 && description.value
+  })
+
   // Методы
   const weatherSearch = async () => {
     loading.value = true
@@ -56,7 +60,16 @@
 </script>
 
 <template>
-  <div class="weather" :class="weatherClass">
+  <!-- <div class="weather"
+      :class="{
+        [weatherClass]: true,
+        'weather--with-data': hasWeatherData
+      }" > -->
+  <div class="weather"
+      :class="[
+        weatherClass,
+        {'weather--with-data': hasWeatherData}
+      ]" >
     <div class="container">
       <div class="card weather-form">
         <input
@@ -78,7 +91,7 @@
 
       <div
         class="weather-info"
-        v-show="!error && location && temperature !== 0 && description"
+        v-show="hasWeatherData"
       >
         <div class="card" v-if="error">Error</div>
 
@@ -131,8 +144,16 @@
   overflow: hidden;
 
   @media (max-width: $mobile-break-point) {
-    height: 100%;
-    overflow: visible;
+    // &:has(.weather-info) { // сработает только с v-if
+    //   height: 100%;
+    //   overflow: visible;
+    // }
+    // height: 100%;
+    // overflow: visible;
+    &--with-data {
+      height: 100%;
+      overflow: visible;
+    }
   }
 }
 
