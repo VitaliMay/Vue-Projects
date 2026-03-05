@@ -1,5 +1,6 @@
 <script setup>
   import { ref, computed } from 'vue'
+  import { weatherConfig, weatherCodeMap, defaultBackground } from '@/config/weatherConfig'
 
   // Состояние (data)
   const location = ref('')
@@ -11,17 +12,45 @@
   const loading = ref(false)
   const error = ref(false)
 
+  const weatherCode = ref(null)  // код погоды из API
+
   // Вычисляемое свойство (computed)
-  const weatherClass = computed(() => {
-    if (description.value.includes('Sunny')) {
-      return 'sunny'
-    } else if (description.value.includes('Overcast')) {
-      return 'overcast'
-    } else if (description.value.includes('Partly cloudy')) {
-      return 'partly-cloudy'
-    } else {
-      return ''
+
+    // Текущее состояние погоды (по коду или по описанию)
+  const currentWeather = computed(() => {
+    // Сначала пробуем найти по коду (точнее)
+    if (weatherCode.value && weatherCodeMap[weatherCode.value]) {
+      const configKey = weatherCodeMap[weatherCode.value]
+      return weatherConfig[configKey]
     }
+
+    // Если нет кода, ищем по описанию
+    const weatherEntry = Object.entries(weatherConfig).find(([_, config]) => {
+      return config.keywords.some(keyword =>
+        description.value.toLowerCase().includes(keyword.toLowerCase())
+      )
+    })
+
+    return weatherEntry ? weatherEntry[1] : null
+  })
+
+
+  const weatherClass = computed(() => currentWeather.value?.class || '')
+
+    // Фоновые изображения
+  const weatherBackgrounds = computed(() => {
+    const backgrounds = [defaultBackground]
+
+    Object.values(weatherConfig).forEach(config => {
+      backgrounds.push({
+        class: config.class,
+        image: config.image,
+        alt: config.alt,
+        active: config.class === weatherClass.value
+      })
+    })
+
+    return backgrounds
   })
 
   const hasWeatherData = computed(() => {
@@ -44,6 +73,7 @@
       temperature.value = data.current.temp_c
       description.value = data.current.condition.text
       iconWeather.value = data.current.condition.icon
+      weatherCode.value = data.current.condition.code
 
       resetSearchQuery()
     } catch (error) {
@@ -57,14 +87,17 @@
   const resetSearchQuery = () => {
     searchQuery.value = ''
   }
+
+  // Mетод для получения URL изображения
+  const getImageUrl = (imageName) => {
+    // const url = new URL(`./assets/img/${imageName}`, import.meta.url).href
+    // console.log(`Loading image: ${url}`) 
+    // return url
+    return new URL(`./assets/img/${imageName}`, import.meta.url).href
+  }
 </script>
 
 <template>
-  <!-- <div class="weather"
-      :class="{
-        [weatherClass]: true,
-        'weather--with-data': hasWeatherData
-      }" > -->
   <div class="weather"
       :class="[
         weatherClass,
@@ -104,7 +137,7 @@
       </div>
     </div>
 
-    <div class="weather-bg">
+    <!-- <div class="weather-bg">
       <div>
         <img
           class="weather-bg__img bg"
@@ -118,20 +151,53 @@
         >
         <img
           class="weather-bg__img partly-cloudy"
-          src="./assets/img/partly-cloudy-01.jpg"
+          src="./assets/img/cloudy-01.jpg"
           alt="Partly Cloudy"
         >
         <img
           class="weather-bg__img sunny"
-          src="./assets/img/sunny-02.jpg"
+          src="./assets/img/sunny-01.jpg"
           alt="Sunny"
         >
       </div>
+    </div> -->
+
+<!-- Динамический рендеринг фонов -->
+    <div class="weather-bg">
+      <div>
+        <img
+          v-for="bg in weatherBackgrounds"
+          :key="bg.class"
+          class="weather-bg__img"
+          :class="bg.class"
+          :src="getImageUrl(bg.image)"
+          :alt="bg.alt"
+        >
+      </div>
     </div>
+
+
+
   </div>
 </template>
 
 <style scoped lang="scss">
+
+// Все классы погоды в SCSS
+$weather-types: (
+  'clear',
+  'cloudy',
+  'overcast',
+  'fog',
+  'rain',
+  'heavy-rain',
+  'snow',
+  'heavy-snow',
+  'sleet',
+  'thunderstorm',
+  'drizzle',
+  'ice-pellets'
+);
 
 .weather {
   width: 100vw;
@@ -144,12 +210,6 @@
   overflow: hidden;
 
   @media (max-width: $mobile-break-point) {
-    // &:has(.weather-info) { // сработает только с v-if
-    //   height: 100%;
-    //   overflow: visible;
-    // }
-    // height: 100%;
-    // overflow: visible;
     &--with-data {
       height: 100%;
       overflow: visible;
@@ -191,29 +251,44 @@
   opacity: 0.5;
 }
 
-/********* sunny **************************************** */
-.weather.sunny .weather-bg__img:not(.sunny) {
-  opacity: 0;
-}
-.weather.sunny .weather-bg__img.sunny {
-  opacity: 0.5;
+
+/************************ */
+/************************ */
+
+// Генерируем CSS для всех состояний
+@each $weather in $weather-types {
+  .weather.#{$weather} .weather-bg__img.#{$weather} {
+    opacity: 0.5;
+  }
+
+  .weather.#{$weather} .weather-bg__img:not(.#{$weather}) {
+    opacity: 0;
+  }
 }
 
-/********* overcast **************************************** */
-.weather.overcast .weather-bg__img:not(.overcast) {
-  opacity: 0;
-}
-.weather.overcast .weather-bg__img.overcast {
-  opacity: 0.5;
-}
+// /********* sunny **************************************** */
+// .weather.sunny .weather-bg__img:not(.sunny) {
+//   opacity: 0;
+// }
+// .weather.sunny .weather-bg__img.sunny {
+//   opacity: 0.5;
+// }
 
-/********* partly-cloudy **************************************** */
-.weather.partly-cloudy .weather-bg__img:not(.partly-cloudy) {
-  opacity: 0;
-}
-.weather.partly-cloudy .weather-bg__img.partly-cloudy {
-  opacity: 0.5;
-}
+// /********* overcast **************************************** */
+// .weather.overcast .weather-bg__img:not(.overcast) {
+//   opacity: 0;
+// }
+// .weather.overcast .weather-bg__img.overcast {
+//   opacity: 0.5;
+// }
+
+// /********* partly-cloudy **************************************** */
+// .weather.partly-cloudy .weather-bg__img:not(.partly-cloudy) {
+//   opacity: 0;
+// }
+// .weather.partly-cloudy .weather-bg__img.partly-cloudy {
+//   opacity: 0.5;
+// }
 
 /************************************************* */
 
@@ -281,12 +356,6 @@
   }
 }
 
-// .weather-form,
-// .weather-load,
-// .weather-info {
-//   grid-column: 1 / 4;
-// }
-
 .weather-load {
   display: flex;
   align-items: center;
@@ -296,7 +365,6 @@
 .weather-info__text {
   display: grid;
   grid-template-columns: 1fr auto;
-  // grid-template-columns: 1fr auto auto;
   gap: 20px;
   font-size: 40px;
 
