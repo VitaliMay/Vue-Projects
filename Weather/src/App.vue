@@ -45,6 +45,7 @@
       backgrounds.push({
         class: config.class,
         image: config.image,
+        fallbackImage: 'bg-01.jpg', // грузим в случае ошибки
         alt: config.alt,
         active: config.class === weatherClass.value
       })
@@ -172,6 +173,7 @@
           :class="bg.class"
           :src="getImageUrl(bg.image)"
           :alt="bg.alt"
+          @error="(e) => e.target.src = getImageUrl(bg.fallbackImage)"
         >
       </div>
     </div>
