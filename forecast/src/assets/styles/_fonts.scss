@@ -1,0 +1,66 @@
+@use "sass:map";
+
+/* === Roboto === */
+
+// @font-face {
+//     font-family: 'Roboto';
+//     src: url('@/assets/fonts/Roboto/Roboto-Regular.woff2') format('woff2'),
+//          url('roboto-variablefont_wdthwght-webfont.woff') format('woff');
+//     font-weight: normal;
+//     font-style: normal;
+//     font-display: swap;
+// }
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('@/assets/fonts/Roboto/roboto-variablefont_wdthwght-webfont.woff2') format('woff2'),
+         url('@/assets/fonts/Roboto/roboto-variablefont_wdthwght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto-Thin';
+    src: url('@/assets/fonts/Roboto/Roboto-Thin.woff2') format('woff2'),
+        url('@/assets/fonts/Roboto/Roboto-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url('@/assets/fonts/Roboto/Roboto-Light.woff2') format('woff2'),
+        url('@/assets/fonts/Roboto/Roboto-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* === Forum === */
+
+@font-face {
+    font-family: 'Forum';
+    src: url('@/assets/fonts/Forum/Forum.woff2') format('woff2'),
+        url('@/assets/fonts/Forum/Forum.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+// $font-family-sans: 'Inter', sans-serif;
+$font-family-sans-Roboto: 'Roboto', sans-serif;
+$font-family-sans-Forum: 'Forum', sans-serif;
+// $font-family-mono: monospace;
+// $font-family-nexa-bold:  'Nexa Bold', sans-serif;
+// $font-family-nexa-light:  'Nexa Light', sans-serif;
+// $font-family-alumni:  'Alumni', sans-serif;
+// $font-family-dimkin-light:  'Dimkin Light', sans-serif;
+// $font-family-dimkin-regular:  'Dimkin Regular', sans-serif;
+
+// $font-size-base: 1rem;
+// $font-size-lg: 1.125rem;
+// $font-size-xl: 1.25rem;
+// $font-size-2xl: 1.5rem;
