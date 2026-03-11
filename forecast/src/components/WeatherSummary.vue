@@ -10,11 +10,18 @@ const props = defineProps({
 })
 
 const weatherImageUrl = computed(() => {
-  if (!props.weatherInfo?.weather?.[0]?.description) return '';
-
+  if (!props.weatherInfo?.weather[0]?.description) return '';
+  // если без props то нужно сделать деструктуризацию с toRefs для сохранения реактивности
+  // const { weatherInfo } = toRefs(props)
   const description = props.weatherInfo.weather[0].description;
   // new URL для корректного  пути во время сборки
-  return new URL(`../assets/img/weather-main/${description}.png`, import.meta.url).href;
+  try {
+    return new URL(`../assets/img/weather-main/${description}.png`, import.meta.url).href;
+  }
+  catch (error) {
+    // Если изображение не найдено, то картинка по умолчанию
+    return new URL('../assets/img/weather-main/broken clouds.png', import.meta.url).href;
+  }
 })
 
 const today = new Date().toLocaleString('en-EN',{
@@ -59,8 +66,8 @@ const today = new Date().toLocaleString('en-EN',{
   height: 60px;
   margin: 20px 0 12px;
   background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: contain;
+  background-position: 50% 50%;
+  background-size: contain;
 }
 
 .city {
@@ -106,7 +113,7 @@ const today = new Date().toLocaleString('en-EN',{
 
 .city {
   &::before {
-    background-image: url('/src/assets/img/location.svg');
+    background-image: url('@/assets/img/location.svg');
   }
 }
 
@@ -115,7 +122,7 @@ const today = new Date().toLocaleString('en-EN',{
     left: 2px;
     width: 15px;
     height: 15px;
-    background-image: url('/src/assets/img/calendar.svg');
+    background-image: url('@/assets/img/calendar.svg');
   }
 }
 
