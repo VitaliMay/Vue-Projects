@@ -44,7 +44,7 @@ import Humidity from './components/Humidity.vue';
               </section>
               <section class="section section-right">
 
-                <Highlights />
+                <Highlights :weatherInfo="weatherInfo"/>
 
               </section>
             </div>

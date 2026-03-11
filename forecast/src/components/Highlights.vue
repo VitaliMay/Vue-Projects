@@ -1,10 +1,31 @@
 <script setup>
+import { computed } from 'vue';
+import { getPressureMm, getTime } from '@/utils';
+
+const props = defineProps({
+  weatherInfo: {
+    type: [Object, null],
+    required: true,
+  }
+})
+
+const timeZone = computed(() => {
+  return props.weatherInfo?.timezone
+})
+
+const sunriseTime = computed(() => {
+  return getTime(props.weatherInfo?.sys?.sunrise + timeZone.value)
+})
+
+const sunsetTime = computed(() => {
+  return getTime(props.weatherInfo?.sys?.sunset + timeZone.value)
+})
 
 </script>
 
 <template>
 
-<div class="section highlights">
+<div v-if="weatherInfo?.weather" class="section highlights">
   <div class="title">
     Today's Highlights
   </div>
@@ -19,7 +40,7 @@
           <div class="card-justify">
             <div class="info-main">
               <div class="info-main-num">
-                3.6
+                {{ weatherInfo?.wind?.speed }}
               </div>
               <div class="info-main-text">
                 m/s
@@ -27,7 +48,7 @@
             </div> 
             <div class="info-main">
               <div class="info-main-num">
-                350
+                {{ weatherInfo?.wind?.deg }}
               </div>
               <div class="info-main-text">
                 deg
@@ -41,9 +62,9 @@
           Wind gusts
         </div>
         <div class="card-small-info">
-          <div class="card-small-data">
+          <div v-if="weatherInfo?.wind?.gust" class="card-small-data">
             <div class="info-main-num">
-              8.4
+              {{ weatherInfo?.wind?.gust ? Math.round(weatherInfo.wind.gust) : '--' }}
             </div>
             <div class="info-main-text">
               m/s
@@ -70,7 +91,7 @@
           <div class="card-centered">
             <div class="info-main">
               <div class="info-main-num">
-                765
+                {{ getPressureMm(weatherInfo?.main?.pressure) }}
               </div>
               <div class="info-main-text">
                 mm
@@ -86,7 +107,7 @@
         <div class="card-small-info">
           <div class="card-small-data">
             <div class="info-main-num">
-              4
+              {{ Math.round(weatherInfo?.main?.feels_like) }}
             </div>
             <div class="info-main-text">
               °C
@@ -115,7 +136,7 @@
                 Sunrise
               </div>
               <div class="state-time">
-                07:31:42
+                {{ sunriseTime }}
               </div>
             </div>
             <div class="state">
@@ -124,7 +145,7 @@
                 Sunset
               </div>
               <div class="state-time">
-                18:34:19
+                {{ sunsetTime }}
               </div>
             </div>
           </div>
@@ -137,7 +158,7 @@
         <div class="card-small-info">
           <div class="card-small-data">
             <div class="info-main-num">
-              80
+              {{ weatherInfo?.clouds?.all }}
             </div>
             <div class="info-main-text">
               %

@@ -55,7 +55,8 @@ const today = new Date().toLocaleString('en-EN',{
   ></div>
   <div class="weather">
     <div class="temp">
-      {{ Math.round(weatherInfo?.main?.temp) }} °C
+      {{ weatherInfo?.main?.temp ? Math.round(weatherInfo.main.temp) : '--' }} °C
+      <!-- {{ Math.round(weatherInfo?.main?.temp) }} °C -->
     </div>
     <div class="weather-desc text-block">
       {{ capitalizeFirstLetter(weatherInfo?.weather[0].description) }}
