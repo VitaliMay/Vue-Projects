@@ -1,28 +1,38 @@
 <script setup>
+import { capitalizeFirstLetter } from '@/utils';
+
+const props = defineProps({
+  weatherInfo: {
+    type: [Object, null],
+    required: true,
+  }
+})
+
+const today = new Date().toLocaleString('en-EN',{weekday: 'short', year: 'numeric', month: 'long', day: 'numeric',})
 
 </script>
 
 <template>
 
-<div class="summary">
+<div v-if="weatherInfo?.weather" class="summary">
   <div
-    style="background-image: url('/src/assets/img/weather-main/thunderstorm.png');"
+    :style="`background-image: url('/src/assets/img/weather-main/${weatherInfo?.weather[0].description}.png');`"
     class="pic-main"
   ></div>
   <div class="weather">
     <div class="temp">
-      6 °C
+      {{ Math.round(weatherInfo?.main?.temp) }} °C
     </div>
     <div class="weather-desc text-block">
-      Thunderstorm
+      {{ capitalizeFirstLetter(weatherInfo?.weather[0].description) }}
     </div>
   </div>
   <div class="city text-block">
-    Minsk,
-    BY
+    {{ weatherInfo?.name }},
+    {{  weatherInfo?.sys?.country }}
   </div>
   <div class="date text-block">
-    Mon, March 9, 2026
+    {{ today }}
   </div>
 </div>
 

@@ -9,7 +9,7 @@
 
   const getWeather = async () => {
       const response = await fetch(
-        `${BASE_URL}?q=${city.value}&appid=${API_KEY}`
+        `${BASE_URL}?q=${city.value}&units=metric&appid=${API_KEY}`
       )
       const data = await response.json()
       weatherInfo.value = data
@@ -36,7 +36,7 @@
                            @keyup.enter="getWeather">
                   </div>
 
-                  <WeatherSummary />
+                  <WeatherSummary :weatherInfo="weatherInfo" />
 
                 </div>
               </section>
