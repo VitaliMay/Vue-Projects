@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { capitalizeFirstLetter } from '@/utils';
 
 const props = defineProps({
@@ -9,18 +9,29 @@ const props = defineProps({
   }
 })
 
+
 const weatherImageUrl = computed(() => {
   if (!props.weatherInfo?.weather[0]?.description) return '';
+
   // если без props то нужно сделать деструктуризацию с toRefs для сохранения реактивности
   // const { weatherInfo } = toRefs(props)
   const description = props.weatherInfo.weather[0].description;
   // new URL для корректного  пути во время сборки
+
   try {
-    return new URL(`../assets/img/weather-main/${description}.png`, import.meta.url).href;
-  }
-  catch (error) {
-    // Если изображение не найдено, то картинка по умолчанию
-    return new URL('../assets/img/weather-main/broken clouds.png', import.meta.url).href;
+    const imageUrl = new URL(`../assets/img/weather-main/${description}.png`, import.meta.url).href;
+
+    // Проверяем на undefined в любой части URL
+    if (imageUrl.includes('undefined') || imageUrl.includes('null') || !description) {
+      console.log('Некорректный URL, применяю default');
+      return new URL('../assets/img/weather-main/default.svg', import.meta.url).href;
+    }
+
+    return imageUrl;
+
+  } catch (error) {
+    console.log('Ошибка формирования URL:', error);
+    return new URL('../assets/img/weather-main/default.svg', import.meta.url).href;
   }
 })
 
@@ -32,6 +43,8 @@ const today = new Date().toLocaleString('en-EN',{
 })
 
 </script>
+
+
 
 <template>
 
