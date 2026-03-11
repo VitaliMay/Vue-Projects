@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 import { capitalizeFirstLetter } from '@/utils';
 
 const props = defineProps({
@@ -8,7 +9,20 @@ const props = defineProps({
   }
 })
 
-const today = new Date().toLocaleString('en-EN',{weekday: 'short', year: 'numeric', month: 'long', day: 'numeric',})
+const weatherImageUrl = computed(() => {
+  if (!props.weatherInfo?.weather?.[0]?.description) return '';
+
+  const description = props.weatherInfo.weather[0].description;
+  // new URL для корректного  пути во время сборки
+  return new URL(`../assets/img/weather-main/${description}.png`, import.meta.url).href;
+})
+
+const today = new Date().toLocaleString('en-EN',{
+  weekday: 'short',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
 
 </script>
 
@@ -16,7 +30,7 @@ const today = new Date().toLocaleString('en-EN',{weekday: 'short', year: 'numeri
 
 <div v-if="weatherInfo?.weather" class="summary">
   <div
-    :style="`background-image: url('/src/assets/img/weather-main/${weatherInfo?.weather[0].description}.png');`"
+    :style="{ backgroundImage: `url(${weatherImageUrl})` }"
     class="pic-main"
   ></div>
   <div class="weather">
