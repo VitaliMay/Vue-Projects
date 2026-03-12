@@ -4,10 +4,12 @@
   import WeatherSummary from './components/WeatherSummary.vue';
   import Highlights from './components/Highlights.vue';
   import Coords from './components/Coords.vue';
-import Humidity from './components/Humidity.vue';
+  import Humidity from './components/Humidity.vue';
+  import { capitalizeFirstLetter } from './utils';
 
   const city = ref('Minsk')
   const weatherInfo = ref(null)
+  const isError = computed(() => weatherInfo.value?.cod !== 200)
 
   const getWeather = async () => {
       const response = await fetch(
@@ -28,7 +30,7 @@ import Humidity from './components/Humidity.vue';
         <div class="container">
           <div class="laptop">
             <div class="sections">
-              <section class="section section-left">
+              <section :class="['section', 'section-left', { 'section-error': isError }]">
                 <div class="info">
                   <div class="city-inner">
                     <input v-model="city"
@@ -38,17 +40,29 @@ import Humidity from './components/Humidity.vue';
                            @keyup.enter="getWeather">
                   </div>
 
-                  <WeatherSummary :weatherInfo="weatherInfo" />
+                  <WeatherSummary
+                    v-if="!isError"
+                    :weatherInfo="weatherInfo" />
 
+                  <div v-else class="error">
+                    <div class="error-title">
+                      Oooops! Something went wrong
+                    </div>
+                    <div v-if="weatherInfo?.message" class="error-message">
+                      {{ capitalizeFirstLetter(weatherInfo?.message) }}
+                    </div>
+                  </div>
                 </div>
               </section>
-              <section class="section section-right">
+              <section
+                v-if="!isError"
+                class="section section-right">
 
                 <Highlights :weatherInfo="weatherInfo"/>
 
               </section>
             </div>
-            <div v-if="weatherInfo?.weather" class="sections">
+            <div v-if="!isError" class="sections">
 
               <Coords :coord="weatherInfo.coord"/>
               <Humidity :humidity="weatherInfo.main.humidity"/>
@@ -96,6 +110,27 @@ import Humidity from './components/Humidity.vue';
   @media (max-width: 767px) {
     width: 100%;
     padding-right: 0;
+  }
+
+  &.section-error {
+    // min-width: 235px;
+    // width: auto;
+    min-width: 100%;
+    padding-right: 0;
+  }
+}
+
+.error {
+  padding-top: 20px;
+
+  &-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &-message {
+    padding-top: 10px;
+    font-size: 13px;
   }
 }
 
