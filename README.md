@@ -1,1 +1,7 @@
-# Vue-Projects
+# Vue-Projects - deploy
+
+### Weather
+https://vitalimay.github.io/Vue-Projects/weather/
+
+### Forecast
+https://vitalimay.github.io/Vue-Projects/forecast/
