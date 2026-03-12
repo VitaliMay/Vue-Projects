@@ -1,5 +1,8 @@
 # Forecast
 
+## deploy link
+https://vitalimay.github.io/Vue-Projects/forecast/
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
@@ -42,3 +45,11 @@ npm run build
 ```sh
 npm run deploy
 ```
+
+### Preview build
+
+```sh
+npm run preview
+```
+
+
