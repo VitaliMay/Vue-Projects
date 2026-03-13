@@ -1,18 +1,17 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from 'node:url';
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueDevTools from 'vite-plugin-vue-devtools';
+
+import eslint from 'vite-plugin-eslint2';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  plugins: [vue(), vueDevTools(), eslint()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 
@@ -24,20 +23,20 @@ export default defineConfig({
         additionalData: `
           @use "@/assets/styles/_variables.scss" as *;
           @use "@/assets/styles/_mixins.scss" as *;
-        `
-      }
-    }
-  }
-})
+        `,
+      },
+    },
+  },
+});
 
 // Чтобы использовать в компонентах style scoped переменные scss
 // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `
-  //         @use "@/assets/styles/_variables.scss" as *;
-  //         @use "@/assets/styles/_mixins.scss" as *;
-  //       `
-  //     }
-  //   }
-  // }
+//   preprocessorOptions: {
+//     scss: {
+//       additionalData: `
+//         @use "@/assets/styles/_variables.scss" as *;
+//         @use "@/assets/styles/_mixins.scss" as *;
+//       `
+//     }
+//   }
+// }

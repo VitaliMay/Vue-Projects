@@ -1,5 +1,6 @@
 <script setup>
-  import { RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
+const test = 1;
 </script>
 
 <template>
@@ -7,9 +8,6 @@
 </template>
 
 <style scoped lang="scss">
-
-
-
 /**  hover  */
 // @media (hover: hover) and (pointer: fine) {
 //   .weather-form__btn:hover {
@@ -28,5 +26,4 @@
 //     grid-template-columns: 1fr;
 //   }
 // }
-
 </style>

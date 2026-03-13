@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && npx gh-pages -d dist -e cocktails"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write src/",
+    "deploy": "npm run lint:fix && npm run build && npx gh-pages -d dist -e cocktails",
+    "prepare": "husky"
   },
   "dependencies": {
     "axios": "^1.13.6",
@@ -19,12 +23,24 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.3",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "eslint": "^10.0.3",
+    "eslint-plugin-vue": "^10.8.0",
     "gh-pages": "^6.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.3",
+    "prettier": "^3.8.1",
     "sass": "^1.97.3",
     "vite": "^7.3.1",
+    "vite-plugin-eslint2": "^5.0.5",
     "vite-plugin-vue-devtools": "^8.0.5"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "eslint --fix"
+    ]
   }
 }

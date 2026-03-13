@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 
 /* === Roboto === */
 
@@ -12,43 +12,46 @@
 // }
 
 @font-face {
-    font-family: 'Roboto';
-    src: url('@/assets/fonts/Roboto/roboto-variablefont_wdthwght-webfont.woff2') format('woff2'),
-         url('@/assets/fonts/Roboto/roboto-variablefont_wdthwght-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Roboto';
+  src:
+    url('@/assets/fonts/Roboto/roboto-variablefont_wdthwght-webfont.woff2') format('woff2'),
+    url('@/assets/fonts/Roboto/roboto-variablefont_wdthwght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Roboto-Thin';
-    src: url('@/assets/fonts/Roboto/Roboto-Thin.woff2') format('woff2'),
-        url('@/assets/fonts/Roboto/Roboto-Thin.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Roboto-Thin';
+  src:
+    url('@/assets/fonts/Roboto/Roboto-Thin.woff2') format('woff2'),
+    url('@/assets/fonts/Roboto/Roboto-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Roboto-Light';
-    src: url('@/assets/fonts/Roboto/Roboto-Light.woff2') format('woff2'),
-        url('@/assets/fonts/Roboto/Roboto-Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Roboto-Light';
+  src:
+    url('@/assets/fonts/Roboto/Roboto-Light.woff2') format('woff2'),
+    url('@/assets/fonts/Roboto/Roboto-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* === Forum === */
 
 @font-face {
-    font-family: 'Forum';
-    src: url('@/assets/fonts/Forum/Forum.woff2') format('woff2'),
-        url('@/assets/fonts/Forum/Forum.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Forum';
+  src:
+    url('@/assets/fonts/Forum/Forum.woff2') format('woff2'),
+    url('@/assets/fonts/Forum/Forum.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
-
 
 // $font-family-sans: 'Inter', sans-serif;
 $font-family-sans-Roboto: 'Roboto', sans-serif;

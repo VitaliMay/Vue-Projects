@@ -1,13 +1,5 @@
-<script setup>
+<script setup></script>
 
-</script>
+<template>Cocktail</template>
 
-<template>
-
-Cocktail
-
-</template>
-
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
