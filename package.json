@@ -1,0 +1,28 @@
+{
+  "name": "vue-projects",
+  "version": "1.0.0",
+  "description": "https://vitalimay.github.io/Vue-Projects/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitaliMay/Vue-Projects.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/VitaliMay/Vue-Projects/issues"
+  },
+  "homepage": "https://github.com/VitaliMay/Vue-Projects#readme",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  },
+  "lint-staged": {
+    "cocktails/**/*.{js,vue}": "npm --prefix cocktails run lint:fix"
+  }
+}

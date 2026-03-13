@@ -1,6 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router';
 const test = 1;
+const testOne = 2;
 </script>
 
 <template>
