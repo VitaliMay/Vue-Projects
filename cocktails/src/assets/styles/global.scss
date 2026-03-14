@@ -1,5 +1,4 @@
 @use 'normalize.css';
-
 @use 'variables' as *;
 @use 'mixins' as *;
 @use 'fonts' as *;
@@ -11,6 +10,7 @@
 *::before {
   // box-sizing: inherit;
   box-sizing: border-box;
+
   // outline: 4px solid red !important; // чтобы видеть что выходит за пределы
 }
 
@@ -50,19 +50,18 @@ select {
 }
 
 a {
-  text-decoration: none;
-  /*чтобы наследовали цвет родителя*/
+  /* чтобы наследовали цвет родителя */
   color: inherit;
+  text-decoration: none;
 }
 
 button {
-  border: none;
-  outline: none; /*убираю фокус*/
-  background: none;
-  appearance: none;
   color: inherit;
-
-  border: solid 2px blue; /*чтобы увидеть кнопку*/
+  appearance: none;
+  outline: none; /* убираю фокус */
+  background: none;
+  border: none;
+  border: solid 2px blue; /* чтобы увидеть кнопку */
 }
 
 :root {
@@ -87,27 +86,29 @@ button {
   // --links-asset-hover: #989898;
   // --progress-main: #c4c4c4;
 
-  --default-light: #ffffff;
-  --default-dark: #000000;
+  --default-light: #fff;
+  --default-dark: #000;
   --default-font-family-default: 'Roboto', sans-serif;
 }
 
 html {
-  scroll-behavior: smooth;
   box-sizing: border-box; // лучше повторю с более высокой специфичностью
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--default-light);
-  color: var(--default-dark);
   font-family: var(--default-font-family);
+  color: var(--default-dark);
+  background-color: var(--default-light);
 }
+
 body.lock {
-  overflow: hidden;
   padding-right: var(
     --scrollbar-width,
     0
   ); // 0 - значение по умолчанию, если переменная не определена
+
+  overflow: hidden;
 }
 
 /* === hidden === */
@@ -141,9 +142,33 @@ body.lock {
   display: none !important;
 }
 
-/***********************************/
+/**********************************  */
 
-.expClass.global {
+.exp-class.global {
   // повышаю специфичность чтобы перебить класс в scope
   color: green;
+}
+
+.test {
+  position: absolute;
+
+  // clip-path: inset(0 0 0 100%);
+  // transition: clip-path 0.5s ease-out;
+  display: flex;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  outline: 0;
+  outline-offset: 0;
+  border: 0;
+  opacity: 0;
+
+  // clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  transform: translateX(-100%);
+  transition: opacity 0.4s ease;
+  transition: all 0.4s ease;
 }

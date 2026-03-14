@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint:style": "stylelint \"src/**/*.{vue,scss,css}\" --fix",
+    "lint:fix": "eslint . --fix && npm run lint:style",
     "format": "prettier --write src/",
     "deploy": "npm run lint:fix && npm run build && npx gh-pages -d dist -e cocktails",
     "prepare": "husky"
@@ -27,8 +28,13 @@
     "eslint": "^10.0.3",
     "eslint-plugin-vue": "^10.8.0",
     "gh-pages": "^6.3.0",
+    "postcss-html": "^1.8.1",
     "prettier": "^3.8.1",
     "sass": "^1.97.3",
+    "stylelint": "^17.4.0",
+    "stylelint-config-recess-order": "^7.6.1",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-prettier": "^5.0.3",
     "vite": "^7.3.1",
     "vite-plugin-eslint2": "^5.0.5",
     "vite-plugin-vue-devtools": "^8.0.5"
