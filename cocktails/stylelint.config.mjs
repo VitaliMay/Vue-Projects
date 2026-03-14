@@ -30,8 +30,12 @@ export default {
   },
   overrides: [
     {
+      files: ['**/*.scss'],
+      customSyntax: 'postcss-scss', // Обязательно для .scss файлов
+    },
+    {
       files: ['**/*.vue'],
-      customSyntax: 'postcss-html',
+      customSyntax: 'postcss-html', // Обязательно для .vue файлов
     },
   ],
 };

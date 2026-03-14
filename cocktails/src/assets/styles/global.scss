@@ -148,27 +148,3 @@ body.lock {
   // повышаю специфичность чтобы перебить класс в scope
   color: green;
 }
-
-.test {
-  position: absolute;
-
-  // clip-path: inset(0 0 0 100%);
-  // transition: clip-path 0.5s ease-out;
-  display: flex;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  white-space: nowrap;
-  outline: 0;
-  outline-offset: 0;
-  border: 0;
-  opacity: 0;
-
-  // clip: rect(0 0 0 0);
-  clip-path: inset(100%);
-  transform: translateX(-100%);
-  transition: opacity 0.4s ease;
-  transition: all 0.4s ease;
-}
