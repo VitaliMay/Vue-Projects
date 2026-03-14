@@ -5,6 +5,7 @@ const testOne = 2;
 const testTwo = 3;
 const testFour = 4;
 const testFive = 5;
+const testSix = 6;
 </script>
 
 <template>
