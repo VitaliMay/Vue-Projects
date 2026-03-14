@@ -11,7 +11,7 @@ export default [
   {
     rules: {
       'vue/multi-word-component-names': 'off',
-      // 'no-unused-vars': 'error', //неиспользуемые переменные
+      'no-unused-vars': 'error', //неиспользуемые переменные
       // Настройка для JS/TS файлов:
       quotes: ['error', 'single'],
       'prettier/prettier': [

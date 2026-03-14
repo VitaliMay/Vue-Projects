@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router';
 const test = 1;
 const testOne = 2;
 const testTwo = 3;
+const testFour = 4;
 </script>
 
 <template>
